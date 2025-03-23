@@ -10,7 +10,7 @@ import { Pagination } from '@/components/ui/pagination';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Danh mục',
-        href: '/categories',
+        href: route('categories.index'),
     },
 ];
 
@@ -68,7 +68,7 @@ export default function Categories({ categories, filters }: Props) {
                         description="Tạo, chỉnh sửa và quản lý danh mục cho bài viết" 
                     />
                     
-                    <Link href="/categories/create">
+                    <Link href={route('categories.create')}>
                         <Button>Thêm danh mục mới</Button>
                     </Link>
                 </div>
@@ -131,11 +131,11 @@ export default function Categories({ categories, filters }: Props) {
                                             </span>
                                         </div>
                                         <div className="mt-4 flex justify-end gap-2">
-                                            <Link href={`/categories/${category.id}/edit`}>
+                                            <Link href={route('categories.edit', category.id)}>
                                                 <Button variant="outline" size="sm">Sửa</Button>
                                             </Link>
                                             <Link 
-                                                href={`/categories/${category.id}`} 
+                                                href={route('categories.destroy', category.id)} 
                                                 method="delete" 
                                                 as="button"
                                             >

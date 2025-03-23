@@ -25,11 +25,11 @@ export default function EditCategory({ category }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Danh mục',
-            href: '/categories',
+            href: route('categories.index'),
         },
         {
             title: category.title,
-            href: `/categories/${category.id}/edit`,
+            href: route('categories.edit', category.id),
         },
     ];
 
@@ -101,7 +101,7 @@ export default function EditCategory({ category }: Props) {
                         <Button type="submit" disabled={processing}>
                             {processing ? 'Đang cập nhật...' : 'Cập nhật danh mục'}
                         </Button>
-                        <Link href="/categories">
+                        <Link href={route('categories.index')}>
                             <Button variant="outline" type="button">Hủy</Button>
                         </Link>
 

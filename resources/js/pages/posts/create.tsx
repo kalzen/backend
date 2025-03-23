@@ -18,11 +18,11 @@ import { Badge } from '@/components/ui/badge';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Bài viết',
-        href: '/posts',
+        href: route('posts.index'),
     },
     {
         title: 'Tạo bài viết mới',
-        href: '/posts/create',
+        href: route('posts.create'),
     },
 ];
 
@@ -225,7 +225,7 @@ export default function CreatePost({ categories = [] }: { categories: Category[]
                         <Button type="submit" disabled={processing}>
                             {processing ? 'Đang lưu...' : 'Lưu bài viết'}
                         </Button>
-                        <Link href="/posts">
+                        <Link href={route('posts.index')}>
                             <Button variant="outline" type="button">Hủy</Button>
                         </Link>
 

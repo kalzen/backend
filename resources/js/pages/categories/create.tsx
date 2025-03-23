@@ -13,11 +13,11 @@ import { ImageUploader } from '@/components/ui/image-uploader';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Danh mục',
-        href: '/categories',
+        href: route('categories.index'),
     },
     {
         title: 'Tạo danh mục mới',
-        href: '/categories/create',
+        href: route('categories.create'),
     },
 ];
 
@@ -88,7 +88,7 @@ export default function CreateCategory() {
                         <Button type="submit" disabled={processing}>
                             {processing ? 'Đang lưu...' : 'Lưu danh mục'}
                         </Button>
-                        <Link href="/categories">
+                        <Link href={route('categories.index')}>
                             <Button variant="outline" type="button">Hủy</Button>
                         </Link>
 

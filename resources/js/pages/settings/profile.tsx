@@ -17,7 +17,7 @@ import { ImageUploader } from '@/components/ui/image-uploader';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Cài đặt hồ sơ',
-        href: '/settings/profile',
+        href: route('profile.edit'),
     },
 ];
 

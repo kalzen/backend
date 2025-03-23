@@ -13,7 +13,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Bài viết',
-        href: '/posts',
+        href: route('posts.index'),
     },
 ];
 
@@ -94,7 +94,7 @@ export default function Index({ posts, filters, categories }: Props) {
                         description="Tạo, chỉnh sửa và quản lý tất cả bài viết của bạn" 
                     />
                     
-                    <Link href="/posts/create">
+                    <Link href={route('posts.create')}>
                         <Button>Thêm bài viết mới</Button>
                     </Link>
                 </div>
@@ -224,10 +224,10 @@ export default function Index({ posts, filters, categories }: Props) {
                                             </td>
                                             <td className="p-4 align-middle text-right">
                                                 <div className="flex justify-end gap-2">
-                                                    <Link href={`/posts/${post.id}/edit`}>
+                                                    <Link href={route('posts.edit', post.id)}>
                                                         <Button variant="outline" size="sm">Sửa</Button>
                                                     </Link>
-                                                    <Link href={`/posts/${post.id}`} method="delete" as="button">
+                                                    <Link href={route('posts.destroy', post.id)} method="delete" as="button">
                                                         <Button variant="destructive" size="sm">Xóa</Button>
                                                     </Link>
                                                 </div>

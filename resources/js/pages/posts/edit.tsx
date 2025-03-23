@@ -41,11 +41,11 @@ export default function EditPost({ post, categories = [] }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Bài viết',
-            href: '/posts',
+            href: route('posts.index'),
         },
         {
             title: post.title,
-            href: `/posts/${post.id}/edit`,
+            href: route('posts.edit', post.id),
         },
     ];
 
@@ -285,7 +285,7 @@ export default function EditPost({ post, categories = [] }: Props) {
                         <Button type="submit" disabled={processing}>
                             {processing ? 'Đang cập nhật...' : 'Cập nhật bài viết'}
                         </Button>
-                        <Link href="/posts">
+                        <Link href={route('posts.index')}>
                             <Button variant="outline" type="button">Hủy</Button>
                         </Link>
 
