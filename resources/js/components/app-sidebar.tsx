@@ -4,45 +4,43 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Settings, UserRound, Cuboid  } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Settings, UserRound, Cuboid } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: route('dashboard'),
         icon: LayoutGrid,
     },
     {
         title: 'Bài Viết',
-        href: '/posts',
+        href: route('posts.index'),
         icon: BookOpen,
     },
     {
         title: 'Danh Mục',
-        href: '/categories',
+        href: route('categories.index'),
         icon: Folder,
     },
     {
         title: 'Cài Đặt',
-        href: '/configs',
+        href: route('configs.index'),
         icon: Settings,
-    }
-    ,
+    },
     {
         title: 'Thành Viên',
-        href: '/members',
+        href: route('members.index'),
         icon: UserRound,
-    }
-    ,
+    },
     {
         title: 'Slider',
-        href: '/sliders',
+        href: route('sliders.index'),
         icon: LayoutGrid,
     },
     {
         title: 'Quản lý Block',
-        href: '/blocks',
+        href: route('blocks.index'),
         icon: Cuboid,
     }
 ];
@@ -58,7 +56,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href={route('dashboard')} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
