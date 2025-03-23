@@ -146,7 +146,7 @@ export default function CreatePost({ categories = [] }: { categories: Category[]
                             description="Tải lên hình ảnh đại diện cho bài viết"
                             error={errors.image}
                             helpText="Hình ảnh sẽ được tự động tối ưu kích thước và chất lượng"
-                            placeholderImage="/assets/image-placeholder.png"
+                            placeholder="/assets/image-placeholder.png"
                             className="w-24 h-24 rounded-md"
                             previewClassName="w-full h-48"
                         />

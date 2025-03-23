@@ -78,7 +78,7 @@ export default function CreateCategory() {
                             description="Tải lên hình ảnh đại diện cho danh mục"
                             error={errors.image}
                             helpText="Hình ảnh sẽ được tự động tối ưu kích thước và chất lượng"
-                            placeholderImage="/assets/category-placeholder.png"
+                            placeholder="/assets/category-placeholder.png"
                             className="w-24 h-24 rounded-md"
                             previewClassName="w-full h-40"
                         />

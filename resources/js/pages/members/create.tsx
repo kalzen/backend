@@ -247,7 +247,7 @@ export default function Create() {
                   description="Tải lên hình ảnh đại diện cho thành viên"
                   error={errors.avatar}
                   helpText="Hình ảnh đại diện nên có tỷ lệ 1:1 và kích thước tối thiểu 300x300px"
-                  placeholderImage="/assets/avatar-placeholder.png"
+                  placeholder="/assets/avatar-placeholder.png"
                   className="w-24 h-24 rounded-full"
                   previewClassName="w-40 h-40"
                 />

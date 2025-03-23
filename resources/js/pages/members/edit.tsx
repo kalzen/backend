@@ -239,7 +239,7 @@ export default function Edit({ member }: Props) {
                   description="Cập nhật hình ảnh đại diện cho thành viên"
                   error={errors.avatar}
                   helpText="Để trống nếu không muốn thay đổi hình ảnh"
-                  placeholderImage="/assets/avatar-placeholder.png"
+                  placeholder="/assets/avatar-placeholder.png"
                   className="w-24 h-24 rounded-full"
                   previewClassName="w-40 h-40"
                 />

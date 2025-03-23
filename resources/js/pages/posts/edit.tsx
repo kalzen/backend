@@ -250,7 +250,7 @@ export default function EditPost({ post, categories = [] }: Props) {
                             description="Cập nhật hình ảnh đại diện"
                             error={errors.image}
                             helpText="Để trống nếu không muốn thay đổi hình ảnh. Hệ thống sẽ tự động tối ưu hình ảnh mới."
-                            placeholderImage="/assets/image-placeholder.png"
+                            placeholder="/assets/image-placeholder.png"
                             className="w-24 h-24 rounded-md"
                             previewClassName="w-full h-48"
                         />

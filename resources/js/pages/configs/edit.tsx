@@ -160,7 +160,7 @@ export default function Edit({ config, types, media }: Props) {
                       title="Logo"
                       description="Cập nhật logo cho website"
                       error={errors.logo}
-                      placeholderImage="/assets/logo-placeholder.png"
+                      placeholder="/assets/logo-placeholder.png"
                       className="w-24 h-24"
                       previewClassName="w-full h-32 object-contain"
                     />
@@ -173,7 +173,7 @@ export default function Edit({ config, types, media }: Props) {
                       description="Cập nhật favicon cho website"
                       error={errors.favicon}
                       helpText="Nên sử dụng hình vuông, kích thước nhỏ"
-                      placeholderImage="/assets/favicon-placeholder.png"
+                      placeholder="/assets/favicon-placeholder.png"
                       className="w-16 h-16"
                       previewClassName="w-16 h-16"
                     />
@@ -185,7 +185,7 @@ export default function Edit({ config, types, media }: Props) {
                       title="Hình thu nhỏ"
                       description="Cập nhật hình thu nhỏ mặc định"
                       error={errors.thumbnail}
-                      placeholderImage="/assets/thumbnail-placeholder.png"
+                      placeholder="/assets/thumbnail-placeholder.png"
                       className="w-24 h-24"
                       previewClassName="w-full h-32"
                     />

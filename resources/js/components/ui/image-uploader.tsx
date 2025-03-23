@@ -117,35 +117,35 @@ export function ImageUploader({
         />
 
         {preview ? (
-          <div className="relative">
+            <div className="relative">
             <img 
-              src={formatStorageUrl(preview || value || '')} 
+              src={preview || value || ''} 
               alt={title} 
               className={previewClassName || 'w-full h-auto object-contain'} 
             />
             <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/50">
               <div className="flex gap-2">
-                <Button 
-                  size="sm" 
-                  onClick={handleClick}
-                  disabled={disabled}
-                  variant="secondary"
-                >
-                  <PencilIcon className="w-4 h-4 mr-1" />
-                  Change
-                </Button>
-                <Button 
-                  size="sm" 
-                  onClick={handleClear}
-                  disabled={disabled}
-                  variant="destructive"
-                >
-                  <TrashIcon className="w-4 h-4 mr-1" />
-                  Remove
-                </Button>
+              <Button 
+                size="sm" 
+                onClick={handleClick}
+                disabled={disabled}
+                variant="secondary"
+              >
+                <PencilIcon className="w-4 h-4 mr-1" />
+                Change
+              </Button>
+              <Button 
+                size="sm" 
+                onClick={handleClear}
+                disabled={disabled}
+                variant="destructive"
+              >
+                <TrashIcon className="w-4 h-4 mr-1" />
+                Remove
+              </Button>
               </div>
             </div>
-          </div>
+            </div>
         ) : (
           <div
             onClick={!disabled ? handleClick : undefined}

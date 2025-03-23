@@ -91,7 +91,7 @@ export default function EditCategory({ category }: Props) {
                             description="Cập nhật hình ảnh đại diện cho danh mục"
                             error={errors.image}
                             helpText="Để trống nếu bạn không muốn thay đổi hình ảnh"
-                            placeholderImage="/assets/category-placeholder.png"
+                            placeholder="/assets/category-placeholder.png"
                             className="w-24 h-24 rounded-md"
                             previewClassName="w-full h-40"
                         />
