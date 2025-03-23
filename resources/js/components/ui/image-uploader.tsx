@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
+import { formatStorageUrl } from '@/utils/helpers';
 
 interface ImageUploaderProps {
   id?: string;
@@ -118,9 +119,9 @@ export function ImageUploader({
         {preview ? (
           <div className="relative">
             <img 
-              src={preview} 
-              alt="Preview" 
-              className={previewClassName} 
+              src={formatStorageUrl(preview || value || '')} 
+              alt={title} 
+              className={previewClassName || 'w-full h-auto object-contain'} 
             />
             <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/50">
               <div className="flex gap-2">

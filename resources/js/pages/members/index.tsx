@@ -14,6 +14,7 @@ import { Switch } from '@/components/ui/switch';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, 
   AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { formatStorageUrl } from '@/utils/helpers';
 
 interface Member {
   id: number;
@@ -115,7 +116,7 @@ export default function Index({ members }: Props) {
                 <TableRow key={member.id}>
                   <TableCell>
                     <Avatar className="size-12">
-                      <AvatarImage src={member.avatar_thumb} alt={member.name} />
+                      <AvatarImage src={formatStorageUrl(member.avatar_thumb)} alt={member.name} />
                       <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                   </TableCell>

@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import HeadingSmall from '@/components/heading-small';
+import { formatStorageUrl } from '@/utils/helpers';
 
 interface BlockItem {
   id: number;
@@ -70,7 +71,7 @@ export default function Show({ block }: Props) {
       case 'image':
         return item.image_url && (
           <div className="rounded-md overflow-hidden">
-            <img src={item.image_url} alt={item.title || 'Block image'} className="w-full h-auto" />
+            <img src={formatStorageUrl(item.image_url)} alt={item.title || 'Block image'} className="w-full h-auto" />
           </div>
         );
         
@@ -101,7 +102,7 @@ export default function Show({ block }: Props) {
             {item.image_url && (
               <div className="rounded-md overflow-hidden">
                 <img 
-                  src={item.image_url} 
+                  src={formatStorageUrl(item.image_url)} 
                   alt={item.title || 'Block image'} 
                   className="w-full h-auto object-cover" 
                 />
@@ -120,7 +121,7 @@ export default function Show({ block }: Props) {
             {item.image_position === 'left' && item.image_url && (
               <div className="rounded-md overflow-hidden">
                 <img 
-                  src={item.image_url} 
+                  src={formatStorageUrl(item.image_url)} 
                   alt={item.title || 'Block image'} 
                   className="w-full h-auto object-cover" 
                 />
@@ -130,7 +131,7 @@ export default function Show({ block }: Props) {
             {item.image_position === 'top' && item.image_url && (
               <div className="col-span-full rounded-md overflow-hidden">
                 <img 
-                  src={item.image_url} 
+                  src={formatStorageUrl(item.image_url)} 
                   alt={item.title || 'Block image'} 
                   className="w-full h-auto object-cover" 
                 />
@@ -157,7 +158,7 @@ export default function Show({ block }: Props) {
             {item.image_position === 'right' && item.image_url && (
               <div className="rounded-md overflow-hidden">
                 <img 
-                  src={item.image_url} 
+                  src={formatStorageUrl(item.image_url)} 
                   alt={item.title || 'Block image'} 
                   className="w-full h-auto object-cover" 
                 />
@@ -167,7 +168,7 @@ export default function Show({ block }: Props) {
             {item.image_position === 'bottom' && item.image_url && (
               <div className="col-span-full rounded-md overflow-hidden">
                 <img 
-                  src={item.image_url} 
+                  src={formatStorageUrl(item.image_url)} 
                   alt={item.title || 'Block image'} 
                   className="w-full h-auto object-cover" 
                 />
@@ -285,7 +286,7 @@ export default function Show({ block }: Props) {
                             {item.image_thumb_url && (
                               <div className="mt-2 h-20 bg-muted rounded overflow-hidden">
                                 <img 
-                                  src={item.image_thumb_url} 
+                                  src={formatStorageUrl(item.image_thumb_url)} 
                                   alt={item.title || 'Thumbnail'}
                                   className="w-full h-full object-cover" 
                                 />

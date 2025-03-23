@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import HeadingSmall from '@/components/heading-small';
 import { EllipsisVertical, GripVertical, Pencil, Trash } from 'lucide-react';
+import { formatStorageUrl } from '@/utils/helpers';
 
 interface BlockItem {
   id: number;
@@ -638,7 +639,7 @@ export default function Edit({
                           {item.image_thumb_url && (
                             <div className="h-12 w-12 bg-muted rounded-md overflow-hidden flex-shrink-0">
                               <img 
-                                src={item.image_thumb_url}
+                                src={formatStorageUrl(item.image_thumb_url)}
                                 alt={item.title || 'Item image'}
                                 className="h-full w-full object-cover"
                               />
