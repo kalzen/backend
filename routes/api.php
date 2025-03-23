@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlockController;
 use App\Http\Controllers\Api\ConfigController;
 use App\Http\Controllers\Api\MemberController;
+use App\Http\Controllers\Api\DiagnosticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,10 @@ use App\Http\Controllers\Api\MemberController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// Diagnostic routes to help with troubleshooting
+Route::get('ping', [DiagnosticController::class, 'ping']);
+Route::get('routes', [DiagnosticController::class, 'routes']);
 
 // Public API routes - no authentication required
 Route::prefix('v1')->group(function () {
