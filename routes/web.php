@@ -12,10 +12,9 @@ use App\Http\Controllers\SliderItemController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\BlockItemController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
