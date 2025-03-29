@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlockController;
 use App\Http\Controllers\Api\ConfigController;
 use App\Http\Controllers\Api\ImageUploadController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\DiagnosticController;
 
