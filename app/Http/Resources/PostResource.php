@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -10,9 +11,9 @@ class PostResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
@@ -20,13 +21,14 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'content' => $this->content,
+            'featured_image' => $this->when($this->featured_image, function() {
+                return url('storage/' . $this->featured_image);
+            }),
+            'is_published' => (bool) $this->is_published,
             'published_at' => $this->published_at,
-            'views' => $this->views,
-            'featured_image' => $this->getFirstMediaUrl('featured_image'),
-            'featured_image_thumb' => $this->getFirstMediaUrl('featured_image', 'thumb'),
-            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }
