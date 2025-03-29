@@ -13,8 +13,12 @@ import { Label } from '@/components/ui/label';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Cài đặt mật khẩu',
-        href: '/settings/password',
+        title: 'Cài đặt',
+        href: route('profile.edit'),
+    },
+    {
+        title: 'Mật khẩu',
+        href: route('password.edit'),
     },
 ];
 
@@ -50,7 +54,7 @@ export default function Password() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Cài đặt hồ sơ" />
+            <Head title="Cập nhật mật khẩu" />
 
             <SettingsLayout>
                 <div className="space-y-6">

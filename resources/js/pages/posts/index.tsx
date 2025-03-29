@@ -227,7 +227,7 @@ export default function Index({ posts, filters, categories }: Props) {
                                                     <Link href={route('posts.edit', post.id)}>
                                                         <Button variant="outline" size="sm">Sửa</Button>
                                                     </Link>
-                                                    <Link href={route('posts.destroy', post.id)} method="delete" as="button">
+                                                    <Link href={route('posts.destroy', post.id)} method="delete" as="span" className="inline-block">
                                                         <Button variant="destructive" size="sm">Xóa</Button>
                                                     </Link>
                                                 </div>

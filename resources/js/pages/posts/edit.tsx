@@ -10,10 +10,11 @@ import InputError from '@/components/input-error';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Transition } from '@headlessui/react';
 import { ImageUploader } from '@/components/ui/image-uploader';
-import { Tag, CheckIcon, ChevronDown } from 'lucide-react';
+import { Tag, ChevronDown } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuLabel, 
   DropdownMenuSeparator, DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
+import { Editor } from '@/components/ui/editor';
 
 interface Category {
     id: number;
@@ -38,6 +39,7 @@ interface Props {
 }
 
 export default function EditPost({ post, categories = [] }: Props) {
+    
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Bài viết',
@@ -72,6 +74,14 @@ export default function EditPost({ post, categories = [] }: Props) {
         submitForm(route('posts.update', post.id), {
             forceFormData: true,
         });
+    };
+
+    // Prevent form submission when pressing Ctrl+Enter or Cmd+Enter
+    const preventFormSubmission = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
     };
 
     // Tự động tạo slug từ tiêu đề khi người dùng nhập
@@ -137,7 +147,6 @@ export default function EditPost({ post, categories = [] }: Props) {
         setData('categories', newCategories);
         setSelectedCategoryNames(newNames);
     };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={`Sửa bài viết: ${post.title}`} />
@@ -148,7 +157,11 @@ export default function EditPost({ post, categories = [] }: Props) {
                         description="Chỉnh sửa nội dung và thông tin bài viết" 
                     />
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-6 pt-4 border-t">
+                <form 
+                    onSubmit={handleSubmit} 
+                    className="space-y-6 pt-4 border-t"
+                    onKeyDown={preventFormSubmission}
+                >
                     <div className="grid gap-2">
                         <Label htmlFor="title">Tiêu đề</Label>
                         <Input
@@ -186,13 +199,10 @@ export default function EditPost({ post, categories = [] }: Props) {
                     
                     <div className="grid gap-2">
                         <Label htmlFor="content">Nội dung</Label>
-                        <textarea
-                            id="content"
-                            className="min-h-[200px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        <Editor
                             value={data.content}
-                            onChange={(e) => setData('content', e.target.value)}
-                            placeholder="Viết nội dung bài viết của bạn tại đây"
-                            rows={8}
+                            onChange={(content) => setData('content', content)}
+                            placeholder="Viết nội dung bài viết của bạn tại đây..."
                         />
                         <InputError message={errors.content} />
                     </div>
