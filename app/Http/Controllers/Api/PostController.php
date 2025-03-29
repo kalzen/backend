@@ -2,141 +2,135 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
-class PostController extends ApiController
+class PostController extends Controller
 {
     /**
-     * Display a listing of posts.
+     * Display a listing of posts
      * 
-     * @param Request $request
-     * @return JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
-        $query = Post::with('categories')->where('is_published', true);
-        
-        // Filter by category
-        if ($request->has('category')) {
-            $query->whereHas('categories', function($q) use ($request) {
-                $q->where('slug', $request->category);
-            });
-        }
-        
-        // Search by title or content
-        if ($request->has('search')) {
-            $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('title', 'like', "%{$searchTerm}%")
-                  ->orWhere('content', 'like', "%{$searchTerm}%");
-            });
-        }
-        
-        // Sort posts
-        $sortField = $request->input('sort_by', 'published_at');
-        $sortDirection = $request->input('sort_direction', 'desc');
-        $allowedSortFields = ['published_at', 'title', 'views'];
-        
-        if (in_array($sortField, $allowedSortFields)) {
-            $query->orderBy($sortField, $sortDirection);
-        } else {
-            $query->orderBy('published_at', 'desc');
-        }
-        
-        $perPage = $request->input('per_page', 10);
-        $posts = $query->paginate($perPage);
-        
-        return $this->sendResponse(new PostCollection($posts));
-    }
-    
-    /**
-     * Display the specified post.
-     * 
-     * @param string $slug
-     * @return JsonResponse
-     */
-    public function show(string $slug): JsonResponse
-    {
-        $post = Post::with('categories')
-            ->where('slug', $slug)
-            ->where('is_published', true)
-            ->first();
-            
-        if (!$post) {
-            return $this->sendError('Post not found', [], 404);
-        }
-        
-        // Increment view count
-        $post->incrementViews();
-        
-        return $this->sendResponse(new PostResource($post));
-    }
-    
-    /**
-     * Display the latest posts.
-     * 
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function latest(Request $request): JsonResponse
-    {
-        $limit = $request->input('limit', 5);
-        $posts = Post::where('is_published', true)
-            ->orderBy('published_at', 'desc')
-            ->limit($limit)
-            ->get();
-            
-        return $this->sendResponse(PostResource::collection($posts));
-    }
-    
-    /**
-     * Display popular posts based on view count.
-     * 
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function popular(Request $request): JsonResponse
-    {
-        $limit = $request->input('limit', 5);
-        $posts = Post::mostViewed($limit)->get();
-            
-        return $this->sendResponse(PostResource::collection($posts));
-    }
-    
-    /**
-     * Display related posts.
-     * 
-     * @param string $slug
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function related(string $slug, Request $request): JsonResponse
-    {
-        $post = Post::where('slug', $slug)->first();
-        
-        if (!$post) {
-            return $this->sendError('Post not found', [], 404);
-        }
-        
-        $limit = $request->input('limit', 3);
-        
-        // Get category IDs of the current post
-        $categoryIds = $post->categories->pluck('id')->toArray();
-        
-        // Find posts in the same categories
-        $relatedPosts = Post::where('id', '!=', $post->id)
-            ->where('is_published', true)
-            ->whereHas('categories', function($query) use ($categoryIds) {
-                $query->whereIn('categories.id', $categoryIds);
+        $posts = Post::with(['categories'])
+            ->published()
+            ->when($request->search, function($query, $search) {
+                return $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('content', 'like', "%{$search}%");
             })
-            ->orderBy('published_at', 'desc')
-            ->limit($limit)
-            ->get();
+            ->when($request->sort_by, function($query, $sortBy) {
+                return $query->orderBy($sortBy, request('sort_dir', 'desc'));
+            }, function($query) {
+                return $query->latest();
+            })
+            ->paginate($request->per_page ?? 15);
             
-        return $this->sendResponse(PostResource::collection($relatedPosts));
+        return new PostCollection($posts);
+    }
+    
+    /**
+     * Display a single post by slug
+     * 
+     * @param string $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function show($slug)
+    {
+        $post = Post::with(['categories'])
+            ->where('slug', $slug)
+            ->published()
+            ->firstOrFail();
+            
+        return new PostResource($post);
+    }
+    
+    /**
+     * Display posts by category slug
+     * 
+     * @param string $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function getByCategory($slug, Request $request)
+    {
+        $posts = Post::with(['categories'])
+            ->whereHas('categories', function($query) use ($slug) {
+                $query->where('slug', $slug);
+            })
+            ->published()
+            ->latest()
+            ->paginate($request->per_page ?? 15);
+            
+        return new PostCollection($posts);
+    }
+    
+    /**
+     * Store a new post
+     * 
+     * @param \App\Http\Requests\StorePostRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StorePostRequest $request)
+    {
+        $post = Post::create($request->validated());
+        
+        if ($request->has('categories')) {
+            $post->categories()->sync($request->categories);
+        }
+        
+        // Handle image upload if provided
+        if ($request->hasFile('image')) {
+            // Process and store the image, then update the post
+            $imagePath = $request->file('image')->store('posts', 'public');
+            $post->update(['featured_image' => $imagePath]);
+        }
+        
+        return new PostResource($post);
+    }
+    
+    /**
+     * Update an existing post
+     * 
+     * @param \App\Http\Requests\UpdatePostRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdatePostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->update($request->validated());
+        
+        if ($request->has('categories')) {
+            $post->categories()->sync($request->categories);
+        }
+        
+        // Handle image upload if provided
+        if ($request->hasFile('image')) {
+            // Process and store the image, then update the post
+            $imagePath = $request->file('image')->store('posts', 'public');
+            $post->update(['featured_image' => $imagePath]);
+        }
+        
+        return new PostResource($post);
+    }
+    
+    /**
+     * Delete a post
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+        
+        return response()->json(['message' => 'Post deleted successfully']);
     }
 }
