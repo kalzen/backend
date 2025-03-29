@@ -5,22 +5,20 @@ import { cn } from '@/lib/utils';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
+import { UserIcon, KeyIcon, PaletteIcon } from 'lucide-react';
 
 const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',
-        href: '/settings/profile',
-        icon: null,
+        href: route('profile.edit'),
     },
     {
         title: 'Mật khẩu',
-        href: '/settings/password',
-        icon: null,
+        href: route('password.edit'),
     },
     {
         title: 'Giao diện',
-        href: '/settings/appearance',
-        icon: null,
+        href: route('appearance'),
     },
 ];
 
@@ -46,10 +44,11 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                 variant="ghost"
                                 asChild
                                 className={cn('w-full justify-start', {
-                                    'bg-muted': currentPath === item.href,
+                                    'bg-muted': currentPath === item.href || window.location.href === item.href,
                                 })}
                             >
-                                <Link href={item.href} prefetch>
+                                <Link href={item.href} prefetch className="flex items-center">
+                                   
                                     {item.title}
                                 </Link>
                             </Button>

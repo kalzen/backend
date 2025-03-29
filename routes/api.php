@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\BlockController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\ConfigController;
+use App\Http\Controllers\Api\ImageUploadController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,8 +46,10 @@ Route::prefix('v1')->group(function () {
     Route::get('site-settings', [ConfigController::class, 'siteSettings']);
 });
 
+// Update the image upload route with the correct name
+Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('api.upload-image');
+
 // Protected API endpoints (requires authentication)
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     // Protected endpoints will go here
-    // For now, we're just setting up public endpoints
 });

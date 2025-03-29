@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef, useEffect } from 'react';
 import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,10 +10,11 @@ import InputError from '@/components/input-error';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Transition } from '@headlessui/react';
 import { ImageUploader } from '@/components/ui/image-uploader';
-import { Tag, CheckIcon, ChevronDown } from 'lucide-react';
+import { Tag, ChevronDown } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuLabel, 
   DropdownMenuSeparator, DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
+import { Editor } from '@/components/ui/editor';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -78,6 +79,14 @@ export default function CreatePost({ categories = [] }: { categories: Category[]
         });
     };
 
+    // Prevent form submission when pressing Ctrl+Enter or Cmd+Enter
+    const preventFormSubmission = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tạo bài viết mới" />
@@ -88,7 +97,11 @@ export default function CreatePost({ categories = [] }: { categories: Category[]
                     description="Thêm một bài viết mới vào blog của bạn" 
                 />
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-6 pt-4 border-t">
+                <form 
+                    onSubmit={handleSubmit} 
+                    className="space-y-6 pt-4 border-t"
+                    onKeyDown={preventFormSubmission}
+                >
                     <div className="grid gap-2">
                         <Label htmlFor="title">Tiêu đề</Label>
                         <Input
@@ -126,18 +139,14 @@ export default function CreatePost({ categories = [] }: { categories: Category[]
                     
                     <div className="grid gap-2">
                         <Label htmlFor="content">Nội dung</Label>
-                        <textarea
-                            id="content"
-                            className="min-h-[200px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        <Editor
                             value={data.content}
-                            onChange={(e) => setData('content', e.target.value)}
-                            placeholder="Viết nội dung bài viết của bạn tại đây"
-                            rows={8}
+                            onChange={(content) => setData('content', content)}
+                            placeholder="Viết nội dung bài viết của bạn tại đây..."
                         />
                         <InputError message={errors.content} />
                     </div>
                     
-                    {/* Thay thế phần upload hình ảnh hiện tại */}
                     <div className="grid gap-2">
                         <ImageUploader
                             id="image"

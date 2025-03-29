@@ -9,8 +9,12 @@ import SettingsLayout from '@/layouts/settings/layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Cài đặt giao diện',
-        href: '/settings/appearance',
+        title: 'Cài đặt',
+        href: route('profile.edit'), // Updated to point to default settings route
+    },
+    {
+        title: 'Giao diện',
+        href: route('appearance'),
     },
 ];
 
