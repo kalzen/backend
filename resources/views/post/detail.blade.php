@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layout.app')
 
 @section('title', $post->title)
 @section('meta_description', $post->description)
