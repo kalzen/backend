@@ -118,7 +118,7 @@
                             <a href="{{ $getConfig('menu_blog_link', '#0') }}">{{ $getConfig('menu_blog', 'Tin tức') }}</a>
                         </li>
                         <li>
-                            <a href="{{ $getConfig('menu_contact_link', 'contact.html') }}">{{ $getConfig('menu_contact', 'Liên hệ') }}</a>
+                            <a href="{{route('contact.index')}}">Liên hệ</a>
                         </li>
                     </ul>
                 </nav>

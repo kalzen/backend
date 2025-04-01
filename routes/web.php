@@ -13,9 +13,14 @@ use App\Http\Controllers\BlockController;
 use App\Http\Controllers\BlockItemController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/posts/{slug}', [FrontendController::class, 'showPost'])->name('post.show');
+
+// Contact routes
+Route::get('/lien-he', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/lien-he/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
