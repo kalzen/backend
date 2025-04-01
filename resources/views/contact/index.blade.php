@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.app')
 
 @section('title', 'Liên hệ')
 @section('meta_description', 'Liên hệ với chúng tôi')
