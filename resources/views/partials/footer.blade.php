@@ -1,13 +1,13 @@
 <!-- Footer area start here -->
 <footer class="footer-area">
     <div class="footer__shape-left">
-        <img src="assets/images/shape/footer-shape-left.png" alt="shape">
+        <img src="{{ asset('assets/images/shape/footer-shape-left.png') }}" alt="shape">
     </div>
     <div class="container">
         <div class="footer__wrp pt-130 pb-130">
             <div class="footer__left">
                 <a href="{{ route('home') }}" class="logo">
-                    <img src="{{ $getConfig('site_logo_light_logo', 'assets/images/logo/logo-light.png') }}" alt="{{ $getConfig('site_name', 'Kalzen') }}">
+                    <img src="{{ $getConfig('site_logo_light_logo', asset('assets/images/logo/logo-light.png')) }}" alt="{{ $getConfig('site_name', 'Kalzen') }}">
                 </a>
                 <p class="mt-30">{{ $getConfig('footer_description', 'Chúng tôi là tổ chức chuyên nghiệp cung cấp dịch vụ tư vấn chuyên môn.') }}</p>
             </div>
@@ -29,7 +29,7 @@
                             <li><a href="{{ $getConfig('menu_about_link', '#0') }}">{{ $getConfig('menu_about', 'Về chúng tôi') }}</a></li>
                             <li><a href="{{ $getConfig('menu_services_link', '#0') }}">{{ $getConfig('menu_services', 'Dịch vụ') }}</a></li>
                             <li><a href="{{ $getConfig('careers_page_link', '#0') }}">{{ $getConfig('careers_page_title', 'Tuyển dụng') }}</a></li>
-                            <li><a href="{{ $getConfig('menu_contact_link', '#0') }}">{{ $getConfig('menu_contact', 'Liên hệ') }}</a></li>
+                            <li><a href="{{ route('contact.index') }}">{{ $getConfig('menu_contact', 'Liên hệ') }}</a></li>
                         </ul>
                     </div>
                     <div class="footer__item-last">
@@ -107,33 +107,33 @@
 <!-- Back to top area end here -->
 
 <!-- Jquery 3.7.0 Min Js -->
-<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script src="assets/js/jquery-3.7.1.min.js"></script>
+<script data-cfasync="false" src="{{ asset('cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 <!-- Bootstrap min Js -->
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <!-- Mean menu Js -->
-<script src="assets/js/meanmenu.js"></script>
+<script src="{{ asset('assets/js/meanmenu.js') }}"></script>
 <!-- Swiper bundle min Js -->
-<script src="assets/js/swiper-bundle.min.js"></script>
+<script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
 <!-- Counterup min Js -->
-<script src="assets/js/jquery.counterup.min.js"></script>
+<script src="{{ asset('assets/js/jquery.counterup.min.js') }}"></script>
 <!-- Wow min Js -->
-<script src="assets/js/wow.min.js"></script>
+<script src="{{ asset('assets/js/wow.min.js') }}"></script>
 <!-- Magnific popup min Js -->
-<script src="assets/js/magnific-popup.min.js"></script>
+<script src="{{ asset('assets/js/magnific-popup.min.js') }}"></script>
 <!-- Nice select min Js -->
-<script src="assets/js/nice-select.min.js"></script>
+<script src="{{ asset('assets/js/nice-select.min.js') }}"></script>
 <!-- Isotope pkgd min Js -->
-<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
 <!-- Parallax Js -->
-<script src="assets/js/parallax.js"></script>
+<script src="{{ asset('assets/js/parallax.js') }}"></script>
 <!-- Splitting Js -->
-<script src="assets/js/splitting.js"></script>
+<script src="{{ asset('assets/js/splitting.js') }}"></script>
 <!-- Waypoints Js -->
-<script src="assets/js/jquery.waypoints.js"></script>
+<script src="{{ asset('assets/js/jquery.waypoints.js') }}"></script>
 <!-- Gsap -->
-<script src="assets/js/gsap/gsap.min.js"></script>
-<script src="assets/js/gsap/ScrollTrigger.min.js"></script>
-<script src="assets/js/gsap/ScrollSmoother.min.js"></script>
+<script src="{{ asset('assets/js/gsap/gsap.min.js') }}"></script>
+<script src="{{ asset('assets/js/gsap/ScrollTrigger.min.js') }}"></script>
+<script src="{{ asset('assets/js/gsap/ScrollSmoother.min.js') }}"></script>
 <!-- Script Js -->
-<script src="assets/js/script.js"></script>
+<script src="{{ asset('assets/js/script.js') }}"></script>
