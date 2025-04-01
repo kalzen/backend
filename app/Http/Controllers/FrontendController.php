@@ -69,4 +69,32 @@ class FrontendController extends Controller
         
         return view('home.index', compact('homeSlider', 'latestPosts'));
     }
+
+    /**
+     * Show the details of a specific post
+     *
+     * @param string $slug
+     * @return \Illuminate\View\View
+     */
+    public function showPost($slug)
+    {
+        // Find the post by slug
+        $post = Post::where('slug', $slug)
+                    ->where('is_published', true)
+                    ->firstOrFail();
+        
+        // Increment view count
+        $post->incrementViews();
+        
+        // Get related posts (posts in the same categories)
+        $relatedPosts = Post::where('id', '!=', $post->id)
+                            ->where('is_published', true)
+                            ->whereHas('categories', function ($query) use ($post) {
+                                $query->whereIn('categories.id', $post->categories->pluck('id'));
+                            })
+                            ->take(3)
+                            ->get();
+        
+        return view('post.detail', compact('post', 'relatedPosts'));
+    }
 }
