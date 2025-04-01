@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Config;
 use App\Models\Slider;
+use App\Models\Post; // Added import for Post model
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 
@@ -59,7 +60,13 @@ class FrontendController extends Controller
                         $query->orderBy('sort_order', 'asc');
                     }])
                     ->first();
-                    
-        return view('home.index', compact('homeSlider'));
+        
+        // Get the 3 latest posts - fixed to use is_published instead of is_active
+        $latestPosts = Post::latest()
+                    ->where('is_published', true)
+                    ->take(3)
+                    ->get();
+        
+        return view('home.index', compact('homeSlider', 'latestPosts'));
     }
 }
